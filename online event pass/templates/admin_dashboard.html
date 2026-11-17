@@ -1,0 +1,57 @@
+
+html
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if editing else 'Create' }} Event | EventPass{% endblock %}
+{% block content %}
+    <main class="container py-5">
+        <div class="card shadow-sm mx-auto" style="max-width: 700px;">
+            <div class="card-body p-4 p-md-5">
+                <h1 class="h3 mb-4">{{ 'Edit Event' if editing else 'Create New Event' }}</h1>
+
+                <form method="POST" action="{{ url_for('edit_event', event_id=event.id) if editing else url_for('create_event') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Event Title</label>
+                        <input class="form-control" type="text" name="title" value="{{ event.title if event else '' }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4">{{ event.description if event else '' }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Event Date</label>
+                            <input class="form-control" type="date" name="event_date" value="{{ event.event_date if event else '' }}" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Venue</label>
+                            <input class="form-control" type="text" name="venue" value="{{ event.venue if event else '' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input class="form-control" type="time" name="start_time" value="{{ event.start_time if event else '' }}" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">End Time</label>
+                            <input class="form-control" type="time" name="end_time" value="{{ event.end_time if event and event.end_time else '' }}">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Capacity</label>
+                            <input class="form-control" type="number" name="capacity" min="1" value="{{ event.capacity if event else '' }}" required>
+                        </div>
+                    </div>
+
+                    {% if editing %}<div class="mb-4"><label class="form-label">Status</label><select class="form-select" name="status"><option value="upcoming" {% if event.status == 'upcoming' %}selected{% endif %}>Upcoming</option><option value="completed" {% if event.status == 'completed' %}selected{% endif %}>Completed</option><option value="cancelled" {% if event.status == 'cancelled' %}selected{% endif %}>Cancelled</option></select></div>{% endif %}
+                    <div class="d-flex gap-2"><a class="btn btn-outline-secondary flex-fill" href="{{ url_for('manage_events') }}">Cancel</a><button class="btn btn-primary flex-fill" type="submit">{{ 'Save Changes' if editing else 'Create Event' }}</button></div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

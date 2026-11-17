@@ -1,0 +1,26 @@
+html
+{% extends "base.html" %}
+{% block title %}Browse Events | EventPass{% endblock %}
+{% block content %}
+<main class="container py-5">
+    <div class="mb-5"><p class="hero-tag mb-2">WHAT'S HAPPENING ON CAMPUS</p><h1 class="display-6 fw-bold text-dark mb-2">Upcoming events</h1><p class="text-muted mb-0">Choose an event, reserve your place, and carry your pass on your phone.</p></div>
+    {% if events %}
+    <div class="row g-4">
+        {% for event in events %}
+        <div class="col-lg-6">
+            <article class="card event-card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between gap-3 mb-3"><span class="badge text-bg-primary">Upcoming</span><span class="small text-muted">{{ event.available_seats }} seats left</span></div>
+                    <h2 class="h4">{{ event.title }}</h2><p class="text-muted">{{ event.description or 'Join us for an engaging college event.' }}</p>
+                    <div class="event-details small mb-4"><div><strong>Date</strong><br>{{ event.event_date.strftime('%d %b %Y') }}</div><div><strong>Time</strong><br>{{ event.start_time|time_display }}{% if event.end_time %} – {{ event.end_time|time_display }}{% endif %}</div><div><strong>Venue</strong><br>{{ event.venue }}</div></div>
+                    {% if session.get('user_id') %}
+                    {% if event.available_seats > 0 %}<form method="post" action="{{ url_for('register_for_event', event_id=event.id) }}"><button class="btn btn-primary" type="submit">Register for this event</button></form>{% else %}<button class="btn btn-secondary" disabled>Event full</button>{% endif %}
+                    {% else %}<a class="btn btn-outline-primary" href="{{ url_for('login') }}?next={{ url_for('events') }}">Login to register</a>{% endif %}
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}<div class="empty-state text-center py-5"><h2 class="h4">No events available</h2><p class="text-muted mb-0">Check back soon for the next college event.</p></div>{% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,10 @@
+html
+{% extends "base.html" %}
+{% block title %}My Passes | EventPass{% endblock %}
+{% block content %}
+<main class="container py-5">
+    <div class="mb-4"><p class="hero-tag mb-2">YOUR DIGITAL ACCESS</p><h1 class="display-6 fw-bold text-dark mb-2">My passes</h1><p class="text-muted">Keep this QR pass ready at the event entrance.</p></div>
+    {% if passes %}<div class="row g-4">{% for pass in passes %}<div class="col-lg-6"><article class="pass-card card border-0 shadow-sm h-100"><div class="card-body p-4"><div class="d-flex justify-content-between align-items-start"><div><span class="badge text-bg-{{ 'success' if pass.pass_status == 'active' else 'secondary' }}">{{ pass.pass_status|title }}</span><h2 class="h4 mt-3 mb-1">{{ pass.title }}</h2><p class="text-muted mb-3">{{ pass.event_date.strftime('%d %b %Y') }} · {{ pass.venue }}</p></div><img class="qr-image" src="{{ url_for('static', filename='generated_qr/' + pass.qr_token + '.png') }}" alt="QR code for {{ pass.title }}"></div><div class="row g-3 small border-top pt-3"><div class="col-6"><span class="text-muted d-block">Participant</span><strong>{{ session.get('user_name') }}</strong></div><div class="col-6"><span class="text-muted d-block">Pass code</span><strong>{{ pass.pass_code }}</strong></div><div class="col-12"><span class="text-muted d-block">Time</span><strong>{{ pass.start_time|time_display }}{% if pass.end_time %} – {{ pass.end_time|time_display }}{% endif %}</strong></div></div></div></article></div>{% endfor %}</div>{% else %}<div class="empty-state text-center py-5"><h2 class="h4">No passes yet</h2><p class="text-muted">Register for an upcoming event to receive your first digital pass.</p><a class="btn btn-primary" href="{{ url_for('events') }}">Browse Events</a></div>{% endif %}
+</main>
+{% endblock %}
+

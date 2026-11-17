@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block title %}Login | EventPass{% endblock %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-body p-4 p-md-5">
+
+            <h1 class="h3 text-center mb-2">Welcome Back</h1>
+
+            <p class="text-center text-muted mb-4">
+                Login to manage your event registrations.
+            </p>
+
+            <form method="POST"
+                  action="{{ url_for('login', next=request.args.get('next', '')) }}">
+
+                <div class="mb-3">
+                    <label class="form-label" for="login_email">
+                        Email Address
+                    </label>
+
+                    <input id="login_email"
+                           class="form-control"
+                           type="email"
+                           name="email"
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label" for="login_password">
+                        Password
+                    </label>
+
+                    <input id="login_password"
+                           class="form-control"
+                           type="password"
+                           name="password"
+                           required>
+                </div>
+
+                <button class="btn btn-primary w-100" type="submit">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

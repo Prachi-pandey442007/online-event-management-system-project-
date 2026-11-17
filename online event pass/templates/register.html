@@ -1,0 +1,91 @@
+
+
+
+{% extends "base.html" %}
+
+{% block title %}Register | EventPass{% endblock %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body p-4 p-md-5">
+
+            <h1 class="h3 text-center mb-2">
+                Create Your Account
+            </h1>
+
+            <p class="text-center text-muted mb-4">
+                Register to join college events and receive QR passes.
+            </p>
+
+            <form method="POST" action="{{ url_for('register') }}">
+
+                <div class="mb-3">
+                    <label class="form-label" for="full_name">
+                        Full Name
+                    </label>
+                    <input id="full_name"
+                           class="form-control"
+                           type="text"
+                           name="full_name"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="email">
+                        Email Address
+                    </label>
+                    <input id="email"
+                           class="form-control"
+                           type="email"
+                           name="email"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="phone">
+                        Phone Number
+                    </label>
+                    <input id="phone"
+                           class="form-control"
+                           type="text"
+                           name="phone">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="college_roll_no">
+                        College Roll Number
+                    </label>
+                    <input id="college_roll_no"
+                           class="form-control"
+                           type="text"
+                           name="college_roll_no"
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label" for="password">
+                        Password
+                    </label>
+                    <input id="password"
+                           class="form-control"
+                           type="password"
+                           name="password"
+                           minlength="6"
+                           required>
+                </div>
+
+                <button class="btn btn-primary w-100" type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

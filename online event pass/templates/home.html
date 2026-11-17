@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+
+{% block title %}EventPass | College Event Management{% endblock %}
+
+{% block content %}
+
+<header class="hero-section">
+    <div class="container text-center">
+        <p class="hero-tag">SMART COLLEGE EVENT MANAGEMENT</p>
+
+        <h1>
+            Register. Scan. Enter.<br>
+            <span>Manage Events Effortlessly.</span>
+        </h1>
+
+        <p class="hero-description">
+            A simple platform for college event registration,
+            digital QR passes, and automatic attendance tracking.
+        </p>
+
+        <a class="btn btn-primary btn-lg me-2"
+           href="{{ url_for('events') }}">
+            Browse Events
+        </a>
+
+        {% if not session.get('user_id') %}
+        <a class="btn btn-outline-primary btn-lg"
+           href="{{ url_for('register') }}">
+            Create Account
+        </a>
+        {% endif %}
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2>Everything You Need for Better Events</h2>
+            <p class="text-muted">
+                Simple for participants and powerful for organizers.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h3>Easy Registration</h3>
+                    <p>
+                        Students can register online without paper
+                        forms or long queues.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h3>Digital QR Pass</h3>
+                    <p>
+                        Every registered participant receives
+                        a unique digital event pass.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h3>Fast Attendance</h3>
+                    <p>
+                        Scan QR codes at entry and record
+                        attendance instantly.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
